@@ -9,7 +9,7 @@ from basic.unit import BLU
 _logger = logging.getLogger(__name__)
 
 
-class 手动按钮测试(unittest.TestCase):
+class ManualBtn(unittest.TestCase):
     def setUp(self):
         th.msleep(1000)
         th.assertActiveWindow(basic.mainWindow)
@@ -20,10 +20,10 @@ class 手动按钮测试(unittest.TestCase):
     def tearDown(self):
         th.close(self.win)
 
-    def test_增量模式(self):
+    def test_add(self):
         th.msleep(500)
         # self.assertTrue(self.win.isVisible())
-        # 增量模式点击手动按钮
+        # add点击手动按钮
         button_list = self.win.buttons
         th.msleep(500)
         for i in ["0.01", "0.1", "1"]:
@@ -76,13 +76,13 @@ def _hasHardLimit():
 
 
 @unittest.skipIf(not _hasHardLimit(), "没有硬限位信号")
-class 限位释放测试(unittest.TestCase):
-    def test_限位释放(self):
+class limit_free(unittest.TestCase):
+    def test_limit_free(self):
         # 将限位端口极性置为1
         th.msleep(2000)
         R[4240, 5] = True
         th.msleep(1000)
-        # 点击限位释放
+        # 点击limit_free
         R[1362, 1] = True
         th.msleep(1000)
         dlg = th.assertActiveWindow(ManualOpDialog)

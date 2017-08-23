@@ -9,26 +9,26 @@ import random
 from PyQt5 import QtWidgets
 
 
-@unittest.skipIf(not th.findButtons(basic.mainWindow, "自动对刀"), "没有自动对刀功能")
-class 自动对刀(unittest.TestCase):
+@unittest.skipIf(not th.findButtons(basic.mainWindow, "AutoToolSet"), "没有AutoToolSet功能")
+class AutoToolSet(unittest.TestCase):
     def setUp(self):
         th.msleep(1000)
         th.assertActiveWindow(basic.mainWindow)
 
-    def test_自动对刀(self):
+    def test_AutoToolSet(self):
         # 获取键盘
         F[400] = True
 
         # 单头机
         if basic.spindleCount() == 1:
 
-            th.clickButton(basic.mainWindow, "自动对刀")
+            th.clickButton(basic.mainWindow, "AutoToolSet")
             th.msleep(1000)
             msg = th.assertActiveWindow(QtWidgets.QMessageBox)
             th.msleep(500)
             th.clickButton(msg, "确定")
             th.msleep(500)
-            # 点击完自动对刀，判断输出端口对刀吹气是否为ture
+            # 点击完AutoToolSet，判断输出端口对刀吹气是否为ture
             assert Y[7]
             th.msleep(1500)
             # 判断XY是否到达对刀起始高度
@@ -51,11 +51,11 @@ class 自动对刀(unittest.TestCase):
             F[590] = False
             th.msleep(2000)
 
-            # 判断 取消自动对刀后 XYZ轴不动
+            # 判断 取消AutoToolSet后 XYZ轴不动
             v1_x = R[101]
             v1_y = R[102]
             v1_z = R[103]
-            th.clickButton(basic.mainWindow, "自动对刀")
+            th.clickButton(basic.mainWindow, "AutoToolSet")
             th.msleep(1000)
             msg = th.assertActiveWindow(QtWidgets.QMessageBox)
             th.msleep(1000)
@@ -67,7 +67,7 @@ class 自动对刀(unittest.TestCase):
 
         else:
             # 多头机对刀
-            th.clickButton(basic.mainWindow, "自动对刀")
+            th.clickButton(basic.mainWindow, "AutoToolSet")
             th.msleep(1000)
             msg = th.assertActiveWindow(basic.AutomaticToolDialog)
             th.msleep(1000)
@@ -93,7 +93,7 @@ class 自动对刀(unittest.TestCase):
             th.msleep(3000)
 
             # 不勾选所有Z轴
-            th.clickButton(basic.mainWindow, "自动对刀")
+            th.clickButton(basic.mainWindow, "AutoToolSet")
             th.msleep(1000)
             R[1007, random.randint(0, basic.spindleCount() - 1)] = 0
             th.msleep(1000)

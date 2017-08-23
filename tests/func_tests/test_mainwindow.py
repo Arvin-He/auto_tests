@@ -9,8 +9,8 @@ from common.widgets.pushbutton import PyPushButton
 from basic import R
 
 
-class 主界面按钮(unittest.TestCase):
-    def test_主界面按钮(self):
+class MainUI(unittest.TestCase):
+    def test_MainUI(self):
         for i in range(basic.axisCount()):
             R[641 + i] = 1
         from plugins.mainui.mainwindow import _mainWindowContent

@@ -10,14 +10,14 @@ from PyQt5 import QtWidgets
 from basic.unit import BLU, mm
 
 
-class 程序开始时检查是否对刀(unittest.TestCase):
+class CheckToolSet(unittest.TestCase):
 
     def setUp(self):
         for a in range(basic.axisCount()):
             R[641 + a] = 1
         basic.Set_Auth_Level(0)
 
-    def test_程序开始时检查是否对刀(self):
+    def test_CheckToolSet(self):
         th.msleep(1000)
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "参数")
@@ -46,7 +46,7 @@ class 程序开始时检查是否对刀(unittest.TestCase):
         self.assertTrue(F[3])
 
 
-class 坐标清零需要确认(unittest.TestCase):
+class CoordinateZero(unittest.TestCase):
     def setUp(self):
         th.msleep(1000)
         th.assertActiveWindow(basic.mainWindow)
@@ -57,7 +57,7 @@ class 坐标清零需要确认(unittest.TestCase):
     def tearDown(self):
         th.close(self.win)
 
-    def test_坐标清零需要确认(self):
+    def test_CoordinateZero(self):
         P[2506] = 1
         th.msleep(500)
         th.findButtons(self.win, "清零")
@@ -84,7 +84,7 @@ class 坐标清零需要确认(unittest.TestCase):
         th.msleep(1000)
 
 
-class 启用多坐标系(unittest.TestCase):
+class UseMultiCoordinate(unittest.TestCase):
     def setUp(self):
         th.msleep(1000)
         th.assertActiveWindow(basic.mainWindow)
@@ -95,7 +95,7 @@ class 启用多坐标系(unittest.TestCase):
     def tearDown(self):
         th.close(self.win)
 
-    def test_启用多坐标系(self):
+    def test_UseMultiCoordinate(self):
         th.msleep(500)
         # 勾选“使用多坐标系”
         P[4305] = 1
@@ -156,13 +156,13 @@ class 启用多坐标系(unittest.TestCase):
         self.assertFalse(self.win.ui.G55.isEnabled())
 
 
-class 加工结束后动作(unittest.TestCase):
+class AfterProcess(unittest.TestCase):
     def setUp(self):
         th.startSetup()
         # 加载NC程序
         th.loadProgram("E:/NC/自动测试程序/自动上下料(1)")
 
-    def test_加工结束后动作(self):
+    def test_AfterProcess(self):
         # 加工结束后回固定点
         P[4001] = 0
         th.msleep(500)
@@ -195,7 +195,7 @@ class 加工结束后动作(unittest.TestCase):
             assert round(R[123 + b] * BLU) == 5 * mm
 
 
-class 暂停时停转主轴(unittest.TestCase):
+class stopspindle(unittest.TestCase):
     def setUp(self):
         th.startSetup()
         # 加载NC程序
@@ -205,7 +205,7 @@ class 暂停时停转主轴(unittest.TestCase):
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F12 停止")
 
-    def test_暂停时停转主轴(self):
+    def test_stopspindle(self):
         P[4002] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F11开始")
@@ -243,13 +243,13 @@ class 暂停时停转主轴(unittest.TestCase):
             assert F[71 + i] and F[81 + i]
 
 
-class 停止时停转主轴(unittest.TestCase):
+class stopspindle2(unittest.TestCase):
     def setUp(self):
         th.startSetup()
         # 加载NC程序
         th.loadProgram("E:/NC/自动测试程序/兰亭集序.NC")
 
-    def test_停止时停转主轴(self):
+    def test_stopspindle2(self):
         P[4100] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F11开始")
@@ -285,7 +285,7 @@ class 停止时停转主轴(unittest.TestCase):
             assert F[71 + i] and F[81 + i]
 
 
-class 暂停时抬刀(unittest.TestCase):
+class up_tool(unittest.TestCase):
     def setUp(self):
         th.startSetup()
         # 加载NC程序
@@ -295,7 +295,7 @@ class 暂停时抬刀(unittest.TestCase):
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F12 停止")
 
-    def test_暂停时抬刀(self):
+    def test_up_tool(self):
         P[4008] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F11开始")
@@ -334,13 +334,13 @@ class 暂停时抬刀(unittest.TestCase):
             assert R[173 + i] == 0 and round(R[103 + i] * BLU) != 0 * mm
 
 
-class 停止时抬刀(unittest.TestCase):
+class stop_up_tool(unittest.TestCase):
     def setUp(self):
         th.startSetup()
         # 加载NC程序
         th.loadProgram("E:/NC/自动测试程序/兰亭集序.NC")
 
-    def test_停止时抬刀(self):
+    def test_stop_up_tool(self):
         P[4101] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F11开始")
@@ -378,14 +378,14 @@ class 停止时抬刀(unittest.TestCase):
             assert R[173 + i] == 0 and round(R[103 + i] * BLU) != 0 * mm
 
 
-class 操作员禁用暂停停止功能(unittest.TestCase):
+class forbidden_halt(unittest.TestCase):
 
     def setUp(self):
         th.startSetup()
         # 加载NC程序
         th.loadProgram("E:/NC/自动测试程序/兰亭集序.NC")
 
-    def test_操作员禁用暂停停止功能(self):
+    def test_forbidden_halt(self):
         P[4142] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "其他功能")
@@ -479,9 +479,9 @@ class 操作员禁用暂停停止功能(unittest.TestCase):
         assert F[3]
 
 
-class 操作员禁用坐标设定(unittest.TestCase):
+class forbidden_halt2(unittest.TestCase):
 
-    def test_操作员禁用坐标设定(self):
+    def test_forbidden_halt2(self):
         P[4143] = 1
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "其他功能")
@@ -508,14 +508,14 @@ class 操作员禁用坐标设定(unittest.TestCase):
             th.close(win)
 
 
-class 安全高度(unittest.TestCase):
+class SafeHight(unittest.TestCase):
 
     def setUp(self):
         th.startSetup()
         # 加载NC程序
         th.loadProgram("E:/NC/自动测试程序/自动上下料(1)")
 
-    def test_安全高度(self):
+    def test_SafeHight(self):
         P[4005] = 40
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F11开始")
@@ -570,14 +570,3 @@ class 安全高度(unittest.TestCase):
         th.close(win)
         th.assertActiveWindow(basic.mainWindow)
         th.clickButton(basic.mainWindow, "F12 停止")
-
-
-class 过切检查误差(unittest.TestCase):
-
-    def setUp(self):
-        th.startSetup()
-        # 加载NC程序
-        th.loadProgram("E:/NC/自动测试程序/五角星过切.nc")
-
-    def test_过切检查误差(self):
-        P
